@@ -2,7 +2,7 @@
 ### Added
 - Glob pattern support
 - Unit Tests
-- Log version
+- Log versions
 
 ### Fixed
 - Exception on margins larger than context of changelog
