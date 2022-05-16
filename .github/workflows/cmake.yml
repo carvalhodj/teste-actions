@@ -35,12 +35,27 @@ jobs:
       run: | 
         sudo apt-get install ninja-build
         cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
+    
+    - name: Compile
+      run: |
         cd ${{github.workspace}}/build        
         ninja
-
 #     - name: Test
 #       working-directory: ${{github.workspace}}/build
 #       # Execute tests defined by the CMake configuration.  
 #       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
 #       run: ctest -C ${{env.BUILD_TYPE}}
 
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: www.google.com
+    needs: build
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Teste dev
+        run: |
+          cd ${{github.workspace}}/build        
+          ninja
+      
