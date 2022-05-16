@@ -4,20 +4,27 @@ on:
   push: 
     tags: 
       - "v*"
-
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 jobs:
   release:
     name: "Release"
     runs-on: "ubuntu-latest"
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v3
-      - name: Generate the artifacts
-        uses: skx/github-action-build@master
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: 'hello_actions'
+    - uses: actions/checkout@v3
+    - name: Build binaries
+      run: |
+        sudo apt install ninja-build
+        cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
+        cd ${{github.workspace}}/build        
+        ninja
+        zip release.zip hello_actions
+    
+    - name: Publish release    
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ env.GITHUB_TOKEN }}"
+        prerelease: false
+        files: ${{github.workspace}}/build/release.zip
 
