@@ -9,8 +9,7 @@ env:
   
 jobs:
   release:
-    name: "Release"
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build binaries
@@ -21,7 +20,6 @@ jobs:
         ninja
         zip release.zip hello_actions
     
-    - name: Publish release    
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
