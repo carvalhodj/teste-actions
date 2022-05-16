@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: anton-yurchenko/git-release@v4.2.2
+    - uses: anton-yurchenko/git-release@v4
 #     - uses: ashutoshvarma/setup-ninja@master
 #       with:
 #           # ninja version to download. Default: 1.10.0
@@ -48,7 +48,7 @@ jobs:
         zip release.zip hello_actions
     
     - name: Release
-      uses: anton-yurchenko/git-release@main
+      uses: docker://antonyurchenko/git-release:latest
       env:
         GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
       with:
