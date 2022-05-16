@@ -9,4 +9,4 @@
 - Nil pointer exception in 'release' package
 
 ### Changed
-- Refactor JavaScript wrappers
+- Refactor JavaScript wrapper
