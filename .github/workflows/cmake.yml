@@ -10,6 +10,7 @@ on:
 
 env: 
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   BUILD_TYPE: Release
 
 jobs: 
@@ -49,7 +50,7 @@ jobs:
     - name: Release
       uses: anton-yurchenko/git-release@main
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
       with:
         args: |
             build/*.zip
