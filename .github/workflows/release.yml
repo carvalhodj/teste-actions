@@ -9,11 +9,10 @@ env:
   
 jobs:
   release:
-    name: "Release"
     runs-on: "ubuntu-latest"
     steps:
     - uses: actions/checkout@v3
-    - name: Build binaries
+    - name: Build
       run: |
         sudo apt install ninja-build
         cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
@@ -21,7 +20,7 @@ jobs:
         ninja
         zip release.zip hello_actions
     
-    - name: Publish release    
+    - name: Publish
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
