@@ -10,11 +10,11 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
 jobs:
-  runs-on: ubuntu-latest
-  uses: actions/checkout@v3
   build: 
+    runs-on: ubuntu-latest
 #    if: ${{ github.event.action }} == 'opened'
     steps:
+    - uses: actions/checkout@v3
     - name: Build cmake
       run: | 
         sudo apt install ninja-build
@@ -25,15 +25,25 @@ jobs:
         cd ${{github.workspace}}/build        
         ninja
         zip release.zip hello_actions
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+	name: my-artifact
+    	path: ${{github.workspace}}/build/release.zip
         
   release:
+    runs-on: ubuntu-latest
     if: ${{ github.event_name }} == 'push'
     needs: build
     steps:
+    - name: Download
+      uses: actions/download-artifact@v2
+      with:
+	name: my-artifact
     - name: Publish
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
-        files: ${{github.workspace}}/build/release.zip
+        files: my-artifact
 
