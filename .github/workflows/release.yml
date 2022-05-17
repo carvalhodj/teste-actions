@@ -16,7 +16,7 @@ jobs:
       run: |
         sudo apt install ninja-build
         cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
-        cd ${{github.workspace}}/build        
+        cd ${{github.workspace}}/build 
         ninja
         zip release.zip hello_actions
     
