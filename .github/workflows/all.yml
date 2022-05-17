@@ -1,0 +1,39 @@
+name: Release
+
+on: 
+  pull_request:
+    branches: [ main ]
+  push: 
+    tags: 
+      - "v*"
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+jobs:
+  runs-on: ubuntu-latest
+  uses: actions/checkout@v3
+  build: 
+#    if: ${{ github.event.action }} == 'opened'
+    steps:
+    - name: Build cmake
+      run: | 
+        sudo apt install ninja-build
+        cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
+    
+    - name: Build ninja
+      run: |
+        cd ${{github.workspace}}/build        
+        ninja
+        zip release.zip hello_actions
+        
+  release:
+    if: ${{ github.event_name }} == 'push'
+    needs: build
+    steps:
+    - name: Publish
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ env.GITHUB_TOKEN }}"
+        prerelease: false
+        files: ${{github.workspace}}/build/release.zip
+
