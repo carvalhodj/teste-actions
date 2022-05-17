@@ -11,8 +11,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
     - name: Build
+      uses: actions/checkout@v3
       run: |
         sudo apt install ninja-build
         cmake -S ${{github.workspace}}/src -B ${{github.workspace}}/build -GNinja
@@ -21,7 +21,7 @@ jobs:
         zip release.zip hello_actions
     
     - name: Publish
-    - uses: "marvinpinto/action-automatic-releases@latest"
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
