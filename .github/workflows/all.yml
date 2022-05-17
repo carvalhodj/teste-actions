@@ -28,8 +28,8 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
-	name: my-artifact
-    	path: ${{github.workspace}}/build/release.zip
+        name: my-artifact
+        path: ${{github.workspace}}/build/release.zip
         
   release:
     runs-on: ubuntu-latest
@@ -39,11 +39,11 @@ jobs:
     - name: Download
       uses: actions/download-artifact@v2
       with:
-	name: my-artifact
+        name: my-artifact
+	
     - name: Publish
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
         files: my-artifact
-
