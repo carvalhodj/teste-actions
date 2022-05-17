@@ -1,4 +1,4 @@
-## [1.3.0] - 2022-05-16
+## [1.3.0] - 2022-05-17
 ### Added
 - Glob pattern support
 - Unit Tests
