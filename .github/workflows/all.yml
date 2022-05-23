@@ -34,7 +34,7 @@ jobs:
         name: my-artifact
         path: |
           ${{github.workspace}}/build/release.zip
-          ${{github.workspace}}/src/codigo.zip
+          ${{github.workspace}}/readme.zip
 
         
   release:
@@ -53,4 +53,4 @@ jobs:
         prerelease: false
         files: |
           build/release.zip
-          src/codigo.zip
+          readme.zip

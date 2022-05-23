@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd ../src
-zip codigo.zip main.c
+cd ../
+zip readme.zip README.md
 echo "done"
