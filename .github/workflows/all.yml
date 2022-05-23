@@ -52,4 +52,4 @@ jobs:
         prerelease: false
         files: |
           build/release.zip
-          main/codigo.zip
+          src/codigo.zip
