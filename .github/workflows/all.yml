@@ -51,5 +51,5 @@ jobs:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          release.zip
-          codigo.zip
+          /home/runner/work/teste-actions/teste-actions/release.zip
+          /home/runner/work/teste-actions/teste-actions/codigo.zip
