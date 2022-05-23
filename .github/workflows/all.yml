@@ -47,7 +47,7 @@ jobs:
         name: my-artifact
     - name: Unzip
       run: |
-        unzip -f my-artifact.zip
+        ls -l
         pwd
     - name: Publish
       uses: "marvinpinto/action-automatic-releases@v1.2.1"
@@ -55,5 +55,4 @@ jobs:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          /home/runner/work/teste-actions/teste-actions/build/release.zip
-          /home/runner/work/teste-actions/teste-actions/src/codigo.zip
+          /home/runner/work/teste-actions/teste-actions/my-artifact.zip
