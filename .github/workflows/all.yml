@@ -13,7 +13,6 @@ jobs:
   build: 
     runs-on: ubuntu-latest
 #    if: ${{ github.event.action }} == 'opened'
-    if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v3
     - name: Build cmake
@@ -40,17 +39,21 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    # needs: build
+    needs: build
     steps:
     - name: Download
       uses: actions/download-artifact@v3
       with:
         name: my-artifact
+    - name: Get Tag
+      run: |
+        echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        mv build/release.zip build/release_$GITHUB_ENV_PROD.zip
     - name: Publish
       uses: "marvinpinto/action-automatic-releases@v1.2.1"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          build/release.zip
+          build/release_$GITHUB_ENV_PROD.zip
           readme.zip
