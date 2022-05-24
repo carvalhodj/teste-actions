@@ -47,13 +47,13 @@ jobs:
         name: my-artifact
     - name: Get Tag
       run: |
-        echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUBENV
-        mv build/release.zip build/release_$GITHUBENV_PROD.zip
+        echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        mv build/release.zip build/release_${{ env.RELEASE_VERSION }}_PROD.zip
     - name: Publish
       uses: "marvinpinto/action-automatic-releases@v1.2.1"
       with:
         repo_token: "${{ env.GITHUB_TOKEN }}"
         prerelease: false
         files: |
-          build/release_$GITHUBENV_PROD.zip
+          build/release_${{ env.RELEASE_VERSION }}_PROD.zip
           readme.zip
