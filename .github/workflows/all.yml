@@ -15,10 +15,10 @@ jobs:
     #    if: ${{ github.event.action }} == 'opened'
     steps:
       - uses: actions/checkout@v3
-      - name: Linter
-        run: |
-          sudo apt install clang-format
-          find ${{github.workspace}}/src/ -iname '*.h' -o -iname '*.c' | xargs clang-format --dry-run --Werror
+      # - name: Linter
+      #   run: |
+      #     sudo apt install clang-format
+      #     find ${{github.workspace}}/src/ -iname '*.h' -o -iname '*.c' | xargs clang-format --dry-run --Werror
       - name: Build cmake
         run: |
           sudo apt install ninja-build
