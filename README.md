@@ -1,6 +1,6 @@
 ## Oie 3
 
-![actions_badge](https://github.com/carvalhodj/teste-actions/actions/workflows/all.yml/badge.svg)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/carvalhodj/teste-actions/All)
 
 testando
 oie 3
