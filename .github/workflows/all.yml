@@ -80,5 +80,6 @@ jobs:
             tmp/release_${{ env.RELEASE_VERSION }}_LOG.zip
             readme.zip
           allowUpdates: true
+          generateReleaseNotes: true
           token: ${{ env.GITHUB_TOKEN }}
             
