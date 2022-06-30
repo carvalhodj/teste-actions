@@ -67,10 +67,6 @@ jobs:
         with:
           format: YYYYMMDDHHMMSS
           utcOffset: "-03:00"
-      - name: Set current time env variable
-        env:
-          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-        run: echo $F_TIME
       - name: Download
         uses: actions/download-artifact@v3
         with:
@@ -80,14 +76,14 @@ jobs:
       - name: Rename file
         run: |
           ls -l
-          mv tmp/release.zip tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ F_TIME }}.zip
-          mv tmp/release_log.zip tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ F_TIME }}.zip
+          mv tmp/release.zip tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ steps.current-time.outputs.formattedTime }}.zip
+          mv tmp/release_log.zip tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ steps.current-time.outputs.formattedTime }}.zip
       - name: Publishing
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: |
-            tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ F_TIME }}.zip
-            tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ F_TIME }}.zip
+            tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ steps.current-time.outputs.formattedTime }}.zip
+            tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ steps.current-time.outputs.formattedTime }}.zip
             readme.zip
           allowUpdates: true
           generateReleaseNotes: true
