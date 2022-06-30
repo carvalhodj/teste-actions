@@ -61,6 +61,16 @@ jobs:
     if: github.event_name == 'push'
     needs: build
     steps:
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDDHHMMSS
+          utcOffset: "-03:00"
+      - name: Set current time env variable
+        env:
+          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        run: echo $F_TIME
       - name: Download
         uses: actions/download-artifact@v3
         with:
@@ -70,14 +80,14 @@ jobs:
       - name: Rename file
         run: |
           ls -l
-          mv tmp/release.zip tmp/release_${{ env.RELEASE_VERSION }}_PROD.zip
-          mv tmp/release_log.zip tmp/release_${{ env.RELEASE_VERSION }}_LOG.zip
+          mv tmp/release.zip tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ F_TIME }}.zip
+          mv tmp/release_log.zip tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ F_TIME }}.zip
       - name: Publishing
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: |
-            tmp/release_${{ env.RELEASE_VERSION }}_PROD.zip
-            tmp/release_${{ env.RELEASE_VERSION }}_LOG.zip
+            tmp/release_${{ env.RELEASE_VERSION }}_PROD_${{ F_TIME }}.zip
+            tmp/release_${{ env.RELEASE_VERSION }}_LOG_${{ F_TIME }}.zip
             readme.zip
           allowUpdates: true
           generateReleaseNotes: true
