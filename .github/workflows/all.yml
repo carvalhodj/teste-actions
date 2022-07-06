@@ -7,14 +7,7 @@ on:
     tags:
       - "*"
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Teste scenario'
-        required: false
+    
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
